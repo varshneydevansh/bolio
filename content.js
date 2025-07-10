@@ -1,58 +1,110 @@
 // This is the content script for the extension.
 
+// Function to show a status notification on the page.
+function showStatus(message, isError = false) {
+  // Remove any existing indicator
+  const existingIndicator = document.getElementById("bolio-status-indicator");
+  if (existingIndicator) {
+    existingIndicator.remove();
+  }
+
+  // Create the indicator element
+  const indicator = document.createElement("div");
+  indicator.id = "bolio-status-indicator";
+  indicator.textContent = message;
+  indicator.className = "bolio-listening-indicator"; // Base class
+  if (isError) {
+    indicator.classList.add("bolio-error-indicator");
+  }
+  document.body.appendChild(indicator);
+
+  // Fade out and remove after a few seconds, unless it's an error or the "Listening..." message
+  if (!isError && message !== "Listening...") {
+    setTimeout(() => {
+      indicator.style.opacity = "0";
+      setTimeout(() => indicator.remove(), 300); // Remove from DOM after transition
+    }, 2000);
+  }
+}
+
+
 // Check if the browser supports the Web Speech API.
 if (!window.SpeechRecognition && !window.webkitSpeechRecognition) {
-  alert("Sorry, your browser does not support the Web Speech API. Please try a different browser.");
+  showStatus("Sorry, your browser doesn't support the Web Speech API.", true);
 } else {
-  // Create a new SpeechRecognition object.
-  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+  // Inject the stylesheet
+  const link = document.createElement("link");
+  link.rel = "stylesheet";
+  link.type = "text/css";
+  link.href = chrome.runtime.getURL("styles.css");
+  document.head.appendChild(link);
 
-  // Set the recognition properties.
+
+  const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
   recognition.continuous = false;
   recognition.interimResults = false;
 
+  // Function to stop recognition and clean up
+  const stopRecognition = () => {
+    recognition.stop();
+    document.removeEventListener("keydown", handleEsc);
+    const indicator = document.getElementById("bolio-status-indicator");
+    if (indicator) {
+        // Fade out the "Listening..." message before removing
+        indicator.style.opacity = "0";
+        setTimeout(() => indicator.remove(), 300);
+    }
+  };
+
+  // Handle the Escape key to stop listening
+  const handleEsc = (event) => {
+    if (event.key === "Escape") {
+      stopRecognition();
+    }
+  };
+
+  document.addEventListener("keydown", handleEsc);
+
+  recognition.onstart = () => {
+    showStatus("Listening...");
+  };
+
+  recognition.onresult = (event) => {
+    const transcript = event.results[0][0].transcript;
+    const activeElement = document.activeElement;
+
+    if (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA" || activeElement.isContentEditable) {
+        // Append text to the current value
+        if(activeElement.value !== undefined) {
+            activeElement.value += transcript;
+        } else if (activeElement.isContentEditable) {
+            // For contentEditable elements, insert at the cursor
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+            range.deleteContents();
+            range.insertNode(document.createTextNode(transcript));
+        }
+    }
+    showStatus("Text inserted!");
+  };
+
+  recognition.onend = () => {
+    stopRecognition();
+  };
+
+  recognition.onerror = (event) => {
+    let errorMessage = "An unknown error occurred.";
+    if (event.error === 'no-speech') {
+        errorMessage = "No speech was detected.";
+    } else if (event.error === 'audio-capture') {
+        errorMessage = "Microphone problem. Please check your microphone.";
+    } else if (event.error === 'not-allowed') {
+        errorMessage = "Microphone access was denied.";
+    }
+    showStatus(errorMessage, true);
+    stopRecognition();
+  };
+
   // Start listening for speech.
   recognition.start();
-
-  // Create a visual indicator to show that Bolio is listening.
-  const listeningIndicator = document.createElement("div");
-  listeningIndicator.textContent = "Listening...";
-  listeningIndicator.style.position = "fixed";
-  listeningIndicator.style.bottom = "20px";
-  listeningIndicator.style.right = "20px";
-  listeningIndicator.style.padding = "10px";
-  listeningIndicator.style.backgroundColor = "rgba(0, 0, 0, 0.5)";
-  listeningIndicator.style.color = "white";
-  listeningIndicator.style.borderRadius = "5px";
-  document.body.appendChild(listeningIndicator);
-
-  // Handle the result event.
-  recognition.onresult = (event) => {
-    // Get the transcribed text.
-    const transcript = event.results[0][0].transcript;
-
-    // Insert the text into the active element.
-    const activeElement = document.activeElement;
-    if (activeElement.tagName === "INPUT" || activeElement.tagName === "TEXTAREA") {
-      activeElement.value += transcript;
-    }
-
-    // Stop listening.
-    recognition.stop();
-  };
-
-  // Handle the end event.
-  recognition.onend = () => {
-    // Remove the visual indicator.
-    document.body.removeChild(listeningIndicator);
-  };
-
-  // Handle errors.
-  recognition.onerror = (event) => {
-    // Log the error to the console.
-    console.error("Speech recognition error:", event.error);
-
-    // Remove the visual indicator.
-    document.body.removeChild(listeningIndicator);
-  };
 }

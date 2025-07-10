@@ -1,0 +1,20 @@
+/* This file will contain the styles for the Bolio extension. */
+
+.bolio-listening-indicator {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 20px;
+  background-color: #4285f4;
+  color: white;
+  border-radius: 5px;
+  font-family: sans-serif;
+  font-size: 14px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  z-index: 9999;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.bolio-error-indicator {
+  background-color: #db4437;
+}

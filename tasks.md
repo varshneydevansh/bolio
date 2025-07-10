@@ -15,10 +15,10 @@
 
 ## Phase 2: Enhanced User Experience & Feedback
 
-*   [ ] Create `styles.css`
-*   [ ] Implement visual listening indicator
-*   [ ] Implement manual stop command (e.g., `Esc` key)
-*   [ ] Implement on-page status notifications ("Listening...", "Error...")
+*   [x] Create `styles.css`
+*   [x] Implement visual listening indicator
+*   [x] Implement manual stop command (e.g., `Esc` key)
+*   [x] Implement on-page status notifications ("Listening...", "Error...")
 
 ## Phase 3: Configuration & Advanced Features
 
