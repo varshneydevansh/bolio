@@ -1,13 +1,15 @@
 {
   "manifest_version": 3,
   "name": "Bolio",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "A universal voice-to-text browser extension.",
   "permissions": [
     "contextMenus",
     "activeTab",
-    "scripting"
+    "scripting",
+    "storage"
   ],
+  "options_page": "options.html",
   "background": {
     "service_worker": "background.js"
   },

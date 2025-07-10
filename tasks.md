@@ -22,8 +22,8 @@
 
 ## Phase 3: Configuration & Advanced Features
 
-*   [ ] Create `options.html`
-*   [ ] Create `options.js`
-*   [ ] Implement options page to select transcription language
-*   [ ] Implement continuous dictation mode
-*   [ ] Implement choice to append or replace text
+*   [x] Create `options.html`
+*   [x] Create `options.js`
+*   [x] Implement options page to select transcription language
+*   [x] Implement continuous dictation mode
+*   [x] Implement choice to append or replace text

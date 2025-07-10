@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.3.0 (2025-07-10)
+
+*   Implemented options page for user configuration.
+*   Added language selection for dictation.
+*   Added continuous dictation mode option.
+*   Added option to append or replace text.
+
 ## 0.2.0 (2025-07-10)
 
 *   Enhanced user experience and feedback.
