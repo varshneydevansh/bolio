@@ -1,0 +1,29 @@
+# Project Tasks
+
+## Phase 1: Core Functionality (MVP)
+
+*   [x] Create `manifest.json`
+*   [x] Create `background.js`
+*   [x] Create `content.js`
+*   [x] Create `images/icon-16.png`
+*   [x] Create `images/icon-48.png`
+*   [x] Create `images/icon-128.png`
+*   [x] Implement context menu creation in `background.js`
+*   [x] Implement script injection in `background.js`
+*   [x] Implement speech recognition in `content.js`
+*   [x] Implement text insertion in `content.js`
+
+## Phase 2: Enhanced User Experience & Feedback
+
+*   [ ] Create `styles.css`
+*   [ ] Implement visual listening indicator
+*   [ ] Implement manual stop command (e.g., `Esc` key)
+*   [ ] Implement on-page status notifications ("Listening...", "Error...")
+
+## Phase 3: Configuration & Advanced Features
+
+*   [ ] Create `options.html`
+*   [ ] Create `options.js`
+*   [ ] Implement options page to select transcription language
+*   [ ] Implement continuous dictation mode
+*   [ ] Implement choice to append or replace text
