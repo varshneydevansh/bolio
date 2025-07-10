@@ -27,3 +27,14 @@
 *   [x] Implement options page to select transcription language
 *   [x] Implement continuous dictation mode
 *   [x] Implement choice to append or replace text
+*   [x] Fix continuous speech repeated insertion bug
+*   [x] Implement text box highlighting
+*   [x] Position UI hint near active text box
+*   [x] Ensure "Text inserted!" message is accurate
+
+## Phase 4: Floating UI & Advanced Control
+*   [ ] Design and implement floating icon near active text field.
+*   [ ] Implement activation of dictation via floating icon click.
+*   [ ] Add "kill button" for continuous speech to floating UI.
+*   [ ] Explore options for switching continuous/simple speech via floating UI.
+*   [ ] Refine `background.js` and `content.js` to support new activation model.

@@ -12,10 +12,27 @@ chrome.runtime.onInstalled.addListener(() => {
 // Listen for clicks on the context menu item.
 chrome.contextMenus.onClicked.addListener((info, tab) => {
   if (info.menuItemId === "bolio-start-dictation") {
-    // Inject the content script into the active tab.
+    // First, ensure content.js is injected into the tab and frame.
+    // This will only inject if it hasn't been injected already in this frame.
     chrome.scripting.executeScript({
-      target: { tabId: tab.id },
+      target: { tabId: tab.id, frameIds: [info.frameId] },
       files: ["content.js"]
+    }, () => {
+      // After content.js is ensured to be loaded, execute a function within its context
+      // to start the dictation. We pass the frameId so content.js knows which frame
+      // the context menu was clicked in.
+      chrome.scripting.executeScript({
+        target: { tabId: tab.id, frameIds: [info.frameId] },
+        function: () => {
+          // This function runs in the content script's isolated world.
+          // It calls a function that content.js should expose globally.
+          if (typeof window.startBolioDictation === 'function') {
+            window.startBolioDictation();
+          } else {
+            console.error("Bolio: startBolioDictation function not found in content script.");
+          }
+        }
+      });
     });
   }
 });
