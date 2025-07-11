@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.3.1 (2025-07-10)
+
+*   Fixed `content.js` re-declaration error by wrapping in IIFE.
+*   Improved text insertion logic for various input types (including dispatching input/change events).
+*   Addressed re-activation issues after losing focus.
+*   Implemented text box highlighting during dictation.
+*   Improved UI hint positioning near the active text box.
+
+
 ## 0.3.0 (2025-07-10)
 
 *   Implemented options page for user configuration.

@@ -20,7 +20,7 @@
   },
   "web_accessible_resources": [
     {
-      "resources": ["styles.css"],
+      "resources": ["styles.css", "images/icon-48.png"],
       "matches": ["<all_urls>"]
     }
   ]

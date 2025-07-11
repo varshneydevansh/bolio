@@ -1,6 +1,7 @@
 (function() {
   let currentActiveElement = null; // To keep track of the element being dictated into
   let recognition = null; // Global recognition object
+  let floatingIcon = null; // Global reference to the floating icon
 
   // Function to show a status notification on the page.
   function showStatus(message, isError = false, targetElement = null) {
@@ -56,6 +57,7 @@
         indicator.style.opacity = "0";
         setTimeout(() => indicator.remove(), 300);
     }
+    removeFloatingIcon(); // Remove the floating icon when dictation stops
   };
 
   // Handle the Escape key to stop listening
@@ -64,6 +66,33 @@
       stopRecognition();
     }
   };
+
+  // Function to create and position the floating icon
+  function createFloatingIcon(targetElement) {
+    removeFloatingIcon(); // Ensure only one icon exists
+
+    floatingIcon = document.createElement("div");
+    floatingIcon.id = "bolio-floating-icon";
+    floatingIcon.className = "bolio-floating-icon";
+    floatingIcon.innerHTML = `<img src="${chrome.runtime.getURL("images/icon-48.png")}" alt="Bolio Icon">`;
+    document.body.appendChild(floatingIcon);
+
+    // Position the icon near the target element
+    const rect = targetElement.getBoundingClientRect();
+    floatingIcon.style.top = `${rect.top + window.scrollY - floatingIcon.offsetHeight - 5}px`;
+    floatingIcon.style.left = `${rect.left + window.scrollX + rect.width - floatingIcon.offsetWidth}px`;
+
+    floatingIcon.addEventListener('click', startBolioDictation);
+  }
+
+  // Function to remove the floating icon
+  function removeFloatingIcon() {
+    if (floatingIcon) {
+      floatingIcon.removeEventListener('click', startBolioDictation);
+      floatingIcon.remove();
+      floatingIcon = null;
+    }
+  }
 
   // Main function to start dictation
   window.startBolioDictation = () => {
@@ -100,6 +129,7 @@
       currentActiveElement = document.activeElement;
       if (currentActiveElement) {
         currentActiveElement.classList.add('bolio-active-input');
+        createFloatingIcon(currentActiveElement); // Create and position the floating icon
       } else {
         showStatus("No active text field found.", true);
         return;
@@ -205,5 +235,33 @@
       recognition.start();
     });
   };
-})();
 
+  // Listen for focus events on editable elements to show the floating icon
+  document.addEventListener('focusin', (event) => {
+    if (event.target.isContentEditable || event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') {
+      currentActiveElement = event.target;
+      createFloatingIcon(currentActiveElement);
+    } else {
+      removeFloatingIcon();
+    }
+  });
+
+  // Listen for blur events to remove the floating icon if the element is no longer active
+  document.addEventListener('focusout', (event) => {
+    // A small delay to allow for focus shifting between elements within the same "logical" input area
+    setTimeout(() => {
+      if (!document.activeElement || (currentActiveElement && !currentActiveElement.contains(document.activeElement) && document.activeElement !== currentActiveElement)) {
+        removeFloatingIcon();
+      }
+    }, 50);
+  });
+
+  // Also listen for clicks outside editable elements to remove the icon
+  document.addEventListener('click', (event) => {
+    if (floatingIcon && !floatingIcon.contains(event.target) &&
+        !(event.target.isContentEditable || event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA')) {
+      removeFloatingIcon();
+    }
+  });
+
+})();

@@ -1,39 +1,47 @@
-/* This file will contain the styles for the Bolio extension. */
-
-.bolio-listening-indicator {
+/* General styles for Bolio elements */
+.bolio-status-indicator {
   position: fixed;
-  bottom: 20px;
-  right: 20px;
-  padding: 10px 20px;
-  background-color: #4285f4;
+  padding: 8px 12px;
+  background-color: #4CAF50; /* Green */
   color: white;
   border-radius: 5px;
-  font-family: sans-serif;
   font-size: 14px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 9999;
+  z-index: 10000; /* Ensure it's on top */
+  opacity: 1;
   transition: opacity 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
 }
 
 .bolio-error-indicator {
-  background-color: #db4437;
+  background-color: #f44336; /* Red */
 }
 
 .bolio-active-input {
-  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.5);
-  transition: box-shadow 0.2s ease-in-out;
+  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.5); /* Blue glow */
 }
 
-.bolio-status-indicator {
-  position: absolute;
-  padding: 8px 12px;
-  background-color: #4285f4;
-  color: white;
-  border-radius: 4px;
-  font-family: sans-serif;
-  font-size: 12px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  z-index: 9999;
-  transition: opacity 0.3s ease-in-out;
-  white-space: nowrap;
+/* Styles for the new floating icon */
+.bolio-floating-icon {
+  position: absolute; /* Will be positioned relative to the active element */
+  width: 32px;
+  height: 32px;
+  background-color: #4285f4; /* Google Blue */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  z-index: 9999; /* Below status indicator, above most content */
+  transition: background-color 0.2s ease-in-out;
+}
+
+.bolio-floating-icon:hover {
+  background-color: #3367d6; /* Darker blue on hover */
+}
+
+.bolio-floating-icon img {
+  width: 20px;
+  height: 20px;
+  filter: invert(100%); /* Make icon white */
 }
