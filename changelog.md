@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.3 (2025-07-11)
+
+*   Fixed floating icon positioning to be relative to the text box and avoid obscuring text.
+*   Implemented feature to add a space before dictation if text already exists.
+
 ## 0.3.2 (2025-07-11)
 
 *   Implemented floating UI (icon, kill button, mode toggle).

@@ -87,19 +87,18 @@ console.log("Bolio: content.js loaded.");
       bolioUIContainer = document.createElement("div");
       bolioUIContainer.id = "bolio-ui-container";
       document.body.appendChild(bolioUIContainer);
-      console.log("Bolio: UI Container created.");
+      console.log("Bolio: UI Container created and appended to body.");
     }
+    // Ensure it's visible when created/used
+    bolioUIContainer.style.display = 'block'; 
+    console.log("Bolio: bolioUIContainer display set to block.");
   }
 
   // Function to hide all Bolio UI elements
   function hideBolioUI() {
     if (bolioUIContainer) {
-      bolioUIContainer.remove();
-      bolioUIContainer = null;
-      floatingIcon = null;
-      killButton = null;
-      modeToggleButton = null;
-      console.log("Bolio: UI Container and elements removed.");
+      bolioUIContainer.style.display = 'none';
+      console.log("Bolio: UI Container display set to none.");
     }
   }
 
@@ -111,7 +110,7 @@ console.log("Bolio: content.js loaded.");
       return; // Ensure target element exists
     }
 
-    createBolioUIContainer(); // Ensure container exists
+    createBolioUIContainer(); // Ensure container exists and is visible
 
     if (!floatingIcon) {
       floatingIcon = document.createElement("div");
@@ -120,7 +119,7 @@ console.log("Bolio: content.js loaded.");
       floatingIcon.textContent = "Mic"; // Use text placeholder
       bolioUIContainer.appendChild(floatingIcon);
       floatingIcon.addEventListener('click', startBolioDictation);
-      console.log("Bolio: Floating icon element created and appended.");
+      console.log("Bolio: Floating icon element created and appended to container.");
     }
 
     // Position the icon near the target element (bottom right or bottom left)
@@ -129,28 +128,25 @@ console.log("Bolio: content.js loaded.");
     const iconHeight = floatingIcon.offsetHeight;
     const padding = 5; // Padding from the element's edge
 
-    let top = rect.bottom + window.scrollY + padding;
-    let left = rect.left + window.scrollX + rect.width - iconWidth - padding;
+    // Calculate position relative to the viewport (since bolioUIContainer is fixed)
+    let top = rect.bottom + padding;
+    let left = rect.right - iconWidth - padding;
 
     // Adjust position if it goes off-screen to the right
-    if (left + iconWidth > window.innerWidth + window.scrollX) {
-      left = window.innerWidth + window.scrollX - iconWidth - padding;
-    }
-
-    // Adjust position if it goes off-screen to the left
-    if (left < window.scrollX) {
-      left = rect.left + window.scrollX + padding;
+    if (left + iconWidth > window.innerWidth) {
+      left = rect.left + padding; // Flip to left side
     }
 
     // Adjust position if it goes off-screen to the bottom
-    if (top + iconHeight > window.innerHeight + window.scrollY) {
-      top = rect.top + window.scrollY - iconHeight - padding;
+    if (top + iconHeight > window.innerHeight) {
+      top = rect.top - iconHeight - padding; // Flip to top
     }
 
     floatingIcon.style.top = `${top}px`;
     floatingIcon.style.left = `${left}px`;
 
     console.log(`Bolio: Floating icon positioned at top: ${top}, left: ${left}.`);
+    console.log(`Bolio: Floating icon offsetWidth: ${floatingIcon.offsetWidth}, offsetHeight: ${floatingIcon.offsetHeight}.`);
   }
 
   // Function to create and position the kill button
@@ -170,8 +166,8 @@ console.log("Bolio: content.js loaded.");
     // Position the kill button relative to the floating icon
     if (floatingIcon) {
       const iconRect = floatingIcon.getBoundingClientRect();
-      killButton.style.top = `${iconRect.top + window.scrollY - (killButton.offsetHeight / 2)}px`;
-      killButton.style.left = `${iconRect.left + window.scrollX + iconRect.width - (killButton.offsetWidth / 2)}px`;
+      killButton.style.top = `${iconRect.top - (killButton.offsetHeight / 2)}px`;
+      killButton.style.left = `${iconRect.left + iconRect.width - (killButton.offsetWidth / 2)}px`;
     }
   }
 
@@ -193,8 +189,8 @@ console.log("Bolio: content.js loaded.");
     // Position the mode toggle button relative to the floating icon
     if (floatingIcon) {
       const iconRect = floatingIcon.getBoundingClientRect();
-      modeToggleButton.style.top = `${iconRect.top + window.scrollY - (modeToggleButton.offsetHeight / 2)}px`;
-      modeToggleButton.style.left = `${iconRect.left + window.scrollX - (modeToggleButton.offsetWidth / 2)}px`;
+      modeToggleButton.style.top = `${iconRect.top - (modeToggleButton.offsetHeight / 2)}px`;
+      modeToggleButton.style.left = `${iconRect.left - (modeToggleButton.offsetWidth / 2)}px`;
     }
   }
 
@@ -351,7 +347,9 @@ console.log("Bolio: content.js loaded.");
             textToSet = currentFinalTranscript + interimTranscript;
         } else {
             // If append, add new final and interim to the existing content (after removing old interim)
-            textToSet = currentContent + newFinalSegment + interimTranscript;
+            // Add a space before new dictation if there's existing text and it's not empty
+            const prefix = (currentContent.length > 0 && newFinalSegment.length > 0 && !currentContent.endsWith(' ')) ? ' ' : '';
+            textToSet = currentContent + prefix + newFinalSegment + interimTranscript;
         }
 
         // Only insert if the original active element is still focused or is the current active element
@@ -458,42 +456,29 @@ console.log("Bolio: content.js loaded.");
   document.addEventListener('focusin', (event) => {
     console.log("Bolio: focusin event fired. Target:", event.target);
     if (isEditable(event.target)) {
-      // If the active element changes, stop existing recognition and update UI for new element
-      if (currentActiveElement !== event.target) {
-        if (recognition && recognition.listening) {
-          recognition.stop(); // Stop only the recognition, not the UI
-          console.log("Bolio: Recognition stopped due to focus change.");
+      // Always update currentActiveElement and UI elements
+      currentActiveElement = event.target;
+      console.log("Bolio: Editable element focused:", currentActiveElement);
+      currentActiveElement.classList.add('bolio-active-input');
+      
+      createBolioUIContainer();
+      createFloatingIcon(currentActiveElement);
+      createModeToggleButton();
+      chrome.storage.sync.get(['bolioContinuous'], (options) => {
+        if (options.bolioContinuous) {
+          createKillButton();
+        } else {
+          if (killButton) killButton.remove(); // Ensure kill button is removed if not continuous
         }
-        if (currentActiveElement) {
-          currentActiveElement.classList.remove('bolio-active-input');
-        }
-        currentActiveElement = event.target;
-        console.log("Bolio: Editable element focused:", currentActiveElement);
-        currentActiveElement.classList.add('bolio-active-input');
-        
-        // Create/reposition UI elements for the new active element
-        createBolioUIContainer();
-        createFloatingIcon(currentActiveElement);
-        createModeToggleButton();
-        chrome.storage.sync.get(['bolioContinuous'], (options) => {
-          if (options.bolioContinuous) {
-            createKillButton();
-          } else {
-            if (killButton) killButton.remove(); // Ensure kill button is removed if not continuous
-          }
-        });
+      });
 
-        // If continuous mode was active and it's the same element, restart recognition
-        // This logic is now handled by the startBolioDictation function itself when called from the icon click
-        // or if the user explicitly starts it.
-
-      } else {
-        console.log("Bolio: Same editable element focused. Keeping UI.");
-        // If the same element is focused, and recognition was stopped, restart it
-        if (recognition && !recognition.listening) {
-          startBolioDictation();
-        }
+      // If recognition was previously active and stopped (e.g., due to blur), restart it
+      // This handles the case where the same element is re-focused.
+      if (recognition && !recognition.listening) {
+        console.log("Bolio: Recognition was stopped, restarting on focus.");
+        startBolioDictation();
       }
+
     } else {
       // If focus moves to a non-editable element, remove the UI elements and stop recognition
       console.log("Bolio: Non-editable element focused. Hiding UI and stopping recognition.");
@@ -538,5 +523,10 @@ console.log("Bolio: content.js loaded.");
       console.log("Bolio: Click within editable area or Bolio UI. Keeping UI.");
     }
   });
+
+  // Initialize the UI container on script load
+  createBolioUIContainer();
+  // Initially hide the container, but its children will be positioned to make it visible on focus
+  bolioUIContainer.style.display = 'none';
 
 })();

@@ -39,10 +39,13 @@
 *   [x] Refine `background.js` and `content.js` to support new activation model.
 
 ## Phase 5: UI/UX Improvements & Bug Fixes
-*   [ ] Fix: Floating icon not visible/reliable on initial text field focus.
-*   [ ] Refine: Microphone management (stop on deselect) and continuous mode behavior.
+*   [ ] Fix: Floating icon not visible/reliable on initial text field focus. (Blocking Issue)
+*   [ ] Implement: Dynamic icon positioning (top/bottom/left/right) to avoid obscuring text.
+*   [x] Refine: Microphone management (stop on deselect) and intelligent continuous mode behavior.
 *   [x] Fix: Continuous mode text repetition.
 *   [x] Fix: Overwrite vs. append logic for text insertion.
 *   [ ] Improve: `gr-app` and generic editable element handling.
+*   [x] Feature: Add space before dictation if text already exists.
+*   [ ] Implement: Visual feedback for icon state (greyed out/filled).
 *   [x] Improvement: Make options page accessible via extension icon click.
 *   [x] Restore: Right-click context menu for dictation activation.
