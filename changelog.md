@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.3.2 (2025-07-11)
+
+*   Implemented floating UI (icon, kill button, mode toggle).
+*   Improved floating icon positioning and visibility.
+*   Made options page accessible via extension icon click.
+*   Restored right-click context menu for dictation activation.
+*   Fixed continuous mode text repetition.
+*   Fixed overwrite vs. append logic for text insertion.
+*   Refined microphone management (stopping on deselect).
+
 ## 0.3.1 (2025-07-10)
 
 *   Fixed `content.js` re-declaration error by wrapping in IIFE.
@@ -14,7 +24,7 @@
 *   Implemented options page for user configuration.
 *   Added language selection for dictation.
 *   Added continuous dictation mode option.
-*   Added option to append or replace text.
+*   Added choice to append or replace text.
 
 ## 0.2.0 (2025-07-10)
 
