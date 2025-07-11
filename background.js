@@ -21,7 +21,7 @@ chrome.contextMenus.onClicked.addListener((info, tab) => {
       // After content.js is ensured to be loaded, execute a function within its context
       // to start the dictation. We pass the frameId so content.js knows which frame
       // the context menu was clicked in.
-      chrome.scripting.executeScript({
+      chrome.scripting.executeScript({ 
         target: { tabId: tab.id, frameIds: [info.frameId] },
         function: () => {
           // This function runs in the content script's isolated world.

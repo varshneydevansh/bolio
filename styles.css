@@ -17,7 +17,8 @@
 }
 
 .bolio-active-input {
-  box-shadow: 0 0 0 2px rgba(66, 133, 244, 0.5); /* Blue glow */
+  box-shadow: 0 0 0 3px rgba(66, 133, 244, 0.8); /* More prominent blue glow */
+  border: 2px solid #4285f4; /* Add a solid border */
 }
 
 /* Styles for the new floating icon */
@@ -34,6 +35,7 @@
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   z-index: 9999; /* Below status indicator, above most content */
   transition: background-color 0.2s ease-in-out;
+  border: 2px solid #fff; /* Add a white border to the icon */
 }
 
 .bolio-floating-icon:hover {
@@ -44,4 +46,60 @@
   width: 20px;
   height: 20px;
   filter: invert(100%); /* Make icon white */
+}
+
+.bolio-kill-button {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: #f44336; /* Red */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  z-index: 10000; /* Above floating icon */
+  font-size: 16px;
+  color: white;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.bolio-kill-button:hover {
+  background-color: #d32f2f; /* Darker red on hover */
+}
+
+.bolio-mode-toggle {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background-color: #f0ad4e; /* Orange for toggle */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  z-index: 10000; /* Above floating icon */
+  font-size: 12px;
+  color: white;
+  font-weight: bold;
+  line-height: 1;
+  text-align: center;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.bolio-mode-toggle:hover {
+  background-color: #ec971f; /* Darker orange on hover */
+}
+
+.bolio-mode-toggle.continuous {
+  background-color: #5cb85c; /* Green for continuous */
+}
+
+.bolio-mode-toggle.continuous:hover {
+  background-color: #449d44; /* Darker green for continuous */
 }

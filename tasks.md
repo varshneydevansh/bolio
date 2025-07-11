@@ -4,7 +4,6 @@
 
 *   [x] Create `manifest.json`
 *   [x] Create `background.js`
-*   [x] Create `content.js`
 *   [x] Create `images/icon-16.png`
 *   [x] Create `images/icon-48.png`
 *   [x] Create `images/icon-128.png`
@@ -34,7 +33,12 @@
 
 ## Phase 4: Floating UI & Advanced Control
 *   [x] Design and implement floating icon near active text field.
-*   [ ] Implement activation of dictation via floating icon click.
-*   [ ] Add "kill button" for continuous speech to floating UI.
-*   [ ] Explore options for switching continuous/simple speech via floating UI.
-*   [ ] Refine `background.js` and `content.js` to support new activation model.
+*   [x] Implement activation of dictation via floating icon click.
+*   [x] Add "kill button" for continuous speech to floating UI.
+*   [x] Explore options for switching continuous/simple speech via floating UI.
+*   [x] Refine `background.js` and `content.js` to support new activation model.
+
+## Phase 5: UI/UX Improvements & Bug Fixes
+*   [ ] Debug: Floating icon not visible/reliable near active text field.
+*   [x] Improvement: Make options page accessible via extension icon click.
+*   [x] Restore: Right-click context menu for dictation activation.
