@@ -12,22 +12,29 @@
   "action": {
     "default_popup": "options.html",
     "default_icon": {
-      "16": "images/icon-16.png",
-      "48": "images/icon-48.png",
-      "128": "images/icon-128.png"
+      "16": "images/bolio-16.png",
+      "48": "images/bolio-48.png",
+      "128": "images/bolio-128.png"
     }
   },
   "background": {
     "service_worker": "background.js"
   },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ],
   "icons": {
-    "16": "images/icon-16.png",
-    "48": "images/icon-48.png",
-    "128": "images/icon-128.png"
+    "16": "images/bolio-16.png",
+    "48": "images/bolio-48.png",
+    "128": "images/bolio-128.png"
   },
   "web_accessible_resources": [
     {
-      "resources": ["styles.css", "images/icon-48.png"],
+      "resources": ["styles.css", "images/bolio-logo.png"],
       "matches": ["<all_urls>"],
       "run_at": "document_start"
     }

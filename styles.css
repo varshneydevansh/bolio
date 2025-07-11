@@ -32,37 +32,73 @@
   z-index: 2147483647; /* Very high z-index to ensure it's always on top */
 }
 
-/* Styles for the new floating icon */
-.bolio-floating-icon {
-  position: absolute; /* Positioned within the container */
-  width: 40px; /* Increased size for text */
-  height: 40px; /* Increased size for text */
-  background-color: #4285f4; /* Google Blue */
-  border-radius: 50%;
+/* Container for the floating UI group (icon, kill, mode toggle) */
+.bolio-ui-group {
+  position: absolute;
   display: flex;
+  align-items: center;
+  z-index: 2147483647; /* Ensure it's always on top */
+  pointer-events: none; /* Allow clicks to pass through unless on a Bolio element */
+}
+
+/* Styles for the main floating icon */
+.bolio-floating-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex; /* Ensure it's a flex container */
+  flex-shrink: 0; /* Prevent it from shrinking */
   justify-content: center;
   align-items: center;
   cursor: pointer;
   box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-  transition: background-color 0.2s ease-in-out;
-  border: 2px solid #fff; /* Add a white border to the icon */
-  color: white; /* Text color */
-  font-weight: bold;
-  font-size: 14px;
+  transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+  border: 2px solid #fff;
+  color: transparent; /* Hide text when using background image */
+  font-weight: normal; /* Reset font weight */
+  font-size: 0; /* Reset font size */
   pointer-events: auto; /* Re-enable clicks for the icon itself */
+  background-size: 70%; /* Make the background image smaller */
+  background-repeat: no-repeat;
+  background-position: center;
+  /* Temporary border for debugging */
+  border: 1px solid red !important;
+}
+
+/* Container for the floating UI group (icon, kill, mode toggle) */
+.bolio-ui-group {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  z-index: 2147483647; /* Ensure it's always on top */
+  pointer-events: none; /* Allow clicks to pass through unless on a Bolio element */
+  /* Temporary border for debugging */
+  border: 1px solid blue !important;
 }
 
 .bolio-floating-icon:hover {
+  transform: scale(1.1); /* Add a little pop on hover */
+}
+
+/* Styles for icon states */
+.bolio-floating-icon.inactive {
+  background-color: #808080; /* Grey for inactive */
+}
+
+.bolio-floating-icon.inactive:hover {
+  background-color: #666; /* Darker grey on hover */
+}
+
+.bolio-floating-icon.active {
+  background-color: #4285f4; /* Blue for active */
+}
+
+.bolio-floating-icon.active:hover {
   background-color: #3367d6; /* Darker blue on hover */
 }
 
-/* Remove img styles as we are using text */
-.bolio-floating-icon img {
-  display: none;
-}
-
+/* Styles for the kill button */
 .bolio-kill-button {
-  position: absolute;
   width: 24px;
   height: 24px;
   background-color: #f44336; /* Red */
@@ -72,7 +108,6 @@
   align-items: center;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  z-index: 10000; /* Above floating icon */
   font-size: 16px;
   color: white;
   font-weight: bold;
@@ -80,14 +115,15 @@
   text-align: center;
   pointer-events: auto; /* Re-enable clicks */
   transition: background-color 0.2s ease-in-out;
+  margin-left: 5px; /* Space from the main icon */
 }
 
 .bolio-kill-button:hover {
   background-color: #d32f2f; /* Darker red on hover */
 }
 
+/* Styles for the mode toggle button */
 .bolio-mode-toggle {
-  position: absolute;
   width: 24px;
   height: 24px;
   background-color: #f0ad4e; /* Orange for toggle */
@@ -97,7 +133,6 @@
   align-items: center;
   cursor: pointer;
   box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  z-index: 10000; /* Above floating icon */
   font-size: 12px;
   color: white;
   font-weight: bold;
@@ -105,6 +140,7 @@
   text-align: center;
   pointer-events: auto; /* Re-enable clicks */
   transition: background-color 0.2s ease-in-out;
+  margin-left: 5px; /* Space from the main icon */
 }
 
 .bolio-mode-toggle:hover {
