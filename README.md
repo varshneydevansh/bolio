@@ -19,10 +19,10 @@ Bolio is a powerful and intuitive browser extension that brings voice-to-text ca
 
 ### Intuitive User Interface (UI)
 - **Contextual Microphone Icon**: A subtle, greyed-out microphone icon appears near any active editable text field, indicating Bolio is ready.
-- **Visual Feedback**: The icon changes color (becomes active) when dictation starts, providing clear visual cues.
-- **Kill Switch**: In continuous mode, a prominent 'X' button allows for immediate and permanent stopping of dictation.
-- **Mode Toggle**: Easily switch between Normal and Continuous dictation modes directly from the floating UI.
-- **Smart Positioning**: The UI elements intelligently position themselves near the text field, adapting to screen edges and avoiding obstruction.
+- **Visual Feedback**: The icon changes to its full color, indicating it's listening. An 'X' button also appears to allow for manual stopping.
+- **Kill Switch**: A prominent 'X' button allows for immediate and permanent stopping of dictation in any mode.
+- **Mode Toggle**: Easily switch between Normal ('S') and Continuous ('C') dictation modes directly from the floating UI.
+- **Smart Positioning**: The UI elements intelligently position themselves near the text field, defaulting to above, but moving below if the text field is near the top of the screen.
 
 ### Enhanced User Experience
 - **Reliable Activation**: The microphone icon appears consistently on initial focus or click of an editable field.
@@ -51,9 +51,9 @@ Bolio is a powerful and intuitive browser extension that brings voice-to-text ca
 - Click the 'C' (Continuous) or 'S' (Simple/Normal) button next to the microphone icon to toggle between dictation modes.
 
 ### Stopping Dictation
-- In Normal mode, dictation automatically stops after a pause.
-- In Continuous mode, click the 'X' button next to the microphone icon to stop dictation.
-- Alternatively, press the `Esc` key to stop dictation in either mode.
+- In Normal mode, dictation automatically stops after a brief pause.
+- In any mode, click the prominent 'X' button to stop dictation.
+- As a shortcut, you can press the `Esc` key to stop dictation at any time, or press `Enter` to toggle dictation on or off.
 
 ### Options
 - Right-click the Bolio extension icon in your browser toolbar and select "Options" to configure language, default dictation mode, and text replacement behavior.

@@ -1,0 +1,13 @@
+{
+  "name": "bolio",
+  "version": "1.0.0",
+  "description": "Universal voice-to-text for any text field.",
+  "scripts": {
+    "build:chrome": "cp manifest.chrome.json manifest.json && zip -r dist/bolio-chrome.zip . -x '*.git*' 'dist/*' '*.md' 'manifest.*.json' 'package.json' 'package-lock.json'",
+    "build:firefox": "cp manifest.firefox.json manifest.json && zip -r dist/bolio-firefox.zip . -x '*.git*' 'dist/*' '*.md' 'manifest.*.json' 'package.json' 'package-lock.json'",
+    "build:edge": "cp manifest.edge.json manifest.json && zip -r dist/bolio-edge.zip . -x '*.git*' 'dist/*' '*.md' 'manifest.*.json' 'package.json' 'package-lock.json'",
+    "build": "mkdir -p dist && npm run build:chrome && npm run build:firefox && npm run build:edge"
+  },
+  "author": "",
+  "license": "MIT"
+}

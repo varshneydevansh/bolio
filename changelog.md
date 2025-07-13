@@ -2,7 +2,19 @@
 
 ## 0.4.1 (2025-07-11)
 
-*   **Critical Bug Fixes & UI/UX Refinements:**
+## 1.0.0 (2025-07-13)
+
+*   **Official Release - Major Logic, UX, and Packaging Overhaul:**
+    *   **ADDED:** Cross-browser support with dedicated manifest files for Chrome, Firefox, and Edge.
+    *   **ADDED:** Implemented a build system via `package.json` for easy packaging.
+    *   **ADDED:** A 750ms pause timeout in Simple mode for reliable auto-stop behavior.
+    *   **ADDED:** An `Enter` key shortcut to toggle dictation for improved accessibility and power-user workflow.
+    *   **FIXED (CRITICAL):** Corrected the core logic for Simple vs. Continuous modes. Simple mode now correctly stops on a pause, and Continuous mode loops reliably.
+    *   **FIXED:** Corrected the "Replace Text" logic in Continuous mode to only clear text on the initial activation, not on automatic restarts.
+    *   **IMPROVED:** Implemented advanced, quadrant-based UI positioning. The icon now intelligently moves to the best location (Above, Below, Right, or Left) to avoid obscuring the text field or going off-screen.
+    *   **IMPROVED:** A clear "Listening..." text indicator now appears next to the icon when the microphone is active.
+    *   **IMPROVED:** The mode toggle ('C'/'S') has been redesigned into a polished corner badge on the main icon.
+    *   **IMPROVED:** A universal `Escape` key shortcut now allows users to stop dictation at any time.
     *   **Resolved `TypeError: Cannot read properties of null (reading 'appendChild')`:** Fixed by delaying initial UI container creation until `DOMContentLoaded` event, ensuring `document.body` is available.
     *   **Improved Icon Visibility on Initial Focus:** Content script (`content.js`) now injected at `document_start` via `manifest.json` to ensure early loading and event listener activation. `background.js` updated to remove redundant script injection.
     *   **Enhanced UI Element Positioning Reliability:** Implemented `requestAnimationFrame` for UI positioning calculations to ensure elements are rendered before dimensions are read. Added forced reflow (`bolioUIGroup.offsetWidth;`) for more accurate dimension retrieval.

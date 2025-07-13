@@ -3,9 +3,14 @@
   "name": "Bolio",
   "version": "1.0.0",
   "description": "Universal voice-to-text for any text field.",
-  "minimum_chrome_version": "88",
   "background": {
-    "service_worker": "background.js"
+    "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "bolio@your-domain.com",
+      "strict_min_version": "109.0"
+    }
   },
   "action": {
     "default_popup": "options.html",

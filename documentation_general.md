@@ -12,89 +12,65 @@ Imagine you're writing an email, filling out a form, or chatting online, and ins
 
 ## How Does Bolio Work for You?
 
-Bolio is designed to be super easy to use. It quietly waits in the background until you need it.
+Bolio is designed to be completely intuitive. It waits quietly until you need it.
 
-### 1. Ready to Listen (The Grey Microphone)
+### 1. The Icon Appears Automatically
 
-When you click inside any text box on a webpage (like a search bar, an email writing area, or a comment section), Bolio notices! It will then show a small, **grey microphone icon** right near where you're typing. This grey icon is Bolio's way of saying, "Hey, I'm here and ready if you need me!"
-
-```
-+---------------------+
-| Your Text Box       |
-+---------------------+
-                      [Mic] <--- Grey Microphone Icon
-```
-
-### 2. Start Speaking! (The Colored Microphone)
-
-To start dictating, simply **click on that grey microphone icon**. As soon as you click it, the icon will change color (it will turn blue, or whatever color we decide for "active"!). This means Bolio is now actively listening to you.
+When you click inside any text box on a webpage (like a search bar, an email composer, or a comment section), Bolio instantly shows a small, **grey microphone icon** right next to it. This grey icon is Bolio's way of saying, "I'm ready to listen whenever you are!"
 
 ```
-+---------------------+
-| Your Text Box       |
-+---------------------+
-                      [Mic] <--- Colored Microphone Icon (Listening!)
++------------------------------------+
+| A Text Box on a Website            |
++------------------------------------+
+                                     [Mic] <--- Grey (inactive) icon appears automatically.
 ```
 
-Now, just speak clearly into your microphone, and watch your words appear in the text box!
+Bolio is smart about where it places the icon. It will try to place it above the text box, but if you're at the top of the screen, it will place it below, to the side—wherever is most convenient and out of your way.
 
-### 3. Two Ways to Dictate: Normal vs. Continuous
+### 2. Click to Start Speaking!
 
-Bolio has two main ways it can listen to you, depending on what you're trying to do:
-
-#### a) Normal Mode (For Short Sentences)
-
-*   **How it works:** In "Normal" mode, Bolio listens for a short phrase or sentence. Once it detects a pause in your speech (like when you finish a sentence), it will automatically stop listening, and the microphone icon will turn back to grey.
-*   **When to use it:** This is great for quick replies, filling out single fields, or dictating one sentence at a time.
+To start dictating, simply **click the grey microphone icon**. The moment you click it:
+*   The icon will change to its **full, vibrant color**.
+*   A clear **"Listening..."** message will appear.
+*   A small **'X' button** will show up, giving you an easy way to stop.
 
 ```
-Flow: Normal Dictation
-+-------------------+     +-------------------+     +-------------------+
-| Click Grey Mic    | --> | Speak (Mic Active)| --> | Pause (Mic Stops) |
-| (Mic turns Active)|     |                   |     | (Mic turns Grey)  |
-+-------------------+     +-------------------+     +-------------------+
++------------------------------------+
+| A Text Box on a Website            |
++------------------------------------+
+                                     [Mic][X] Listening... <--- Colored (active) icon.
 ```
 
-#### b) Continuous Mode (For Longer Texts)
+Now, just speak clearly, and watch your words appear in the text box in real-time!
 
-*   **How it works:** In "Continuous" mode, Bolio keeps listening even if you pause for a moment. It's designed for longer dictation sessions, like writing a whole paragraph or an entire email. The microphone icon will stay colored as long as you're in this mode and the text box is active.
-*   **When to use it:** Use this when you have a lot to say and don't want Bolio to stop listening after every short break.
+### 3. Two Powerful Dictation Modes
 
-```
-Flow: Continuous Dictation
-+-------------------+     +-------------------+     +-------------------+
-| Click Grey Mic    | --> | Speak (Mic Active)| --> | Pause (Mic Active)|
-| (Mic turns Active)|     |                   |     | (Keeps Listening) |
-+-------------------+     +-------------------+     +-------------------+
-```
+Bolio has two modes, easily switchable by clicking the badge on the corner of the icon.
 
-### 4. Switching Between Modes (The "C" / "S" Button)
+#### a) Simple Mode (Default, badge shows 'S')
 
-Next to the microphone icon, you'll see a small button that says either "C" (for Continuous) or "S" (for Simple/Normal). Just click this button to switch between the two dictation modes.
+*   **How it works:** Bolio listens for a short phrase or sentence. When it detects a natural pause in your speech, it automatically stops listening, and the icon turns back to grey.
+*   **When to use it:** Perfect for quick replies, filling out forms, or dictating one thought at a time.
 
-```
-+---------------------+
-| Your Text Box       |
-+---------------------+
-                      [Mic] [C] <--- Click 'C' to switch to 'S' (and vice-versa)
-```
+#### b) Continuous Mode (Badge shows 'C')
 
-### 5. Stopping Dictation (The "X" Button)
+*   **How it works:** Bolio keeps listening, even if you pause. It's designed for longer dictation, like writing a whole paragraph or an entire email without interruption.
+*   **When to use it:** Use this when you have a lot to say and don't want the microphone to turn off between thoughts.
 
-If you're in "Continuous" mode and you want Bolio to stop listening, you'll see a small **"X" button** next to the microphone icon. Clicking this "X" button will immediately stop the dictation, and the microphone icon will turn back to grey.
+### 4. Stopping is Easy
 
-```
-+---------------------+
-| Your Text Box       |
-+---------------------+
-                      [Mic] [X] <--- Click 'X' to stop Continuous Dictation
-```
+You have two simple ways to stop dictation at any time:
+1.  **Click the 'X' button** next to the icon.
+2.  **Press the `Esc` key** on your keyboard.
 
-You can also press the `Esc` key on your keyboard at any time to stop dictation, regardless of the mode.
+If you click away from the text box, Bolio is smart enough to stop automatically and disappear, keeping your page clean.
 
-### 6. What Happens When You Move Away?
+### 5. Appending vs. Replacing Text
 
-If you click outside the text box where Bolio is active, or if you switch to another tab, Bolio is smart enough to know you're done. It will automatically hide its icons and stop listening, keeping your screen clean and your privacy secure.
+In the options page, you can choose how Bolio handles existing text.
+
+*   **Append (Default):** If there's already text in the box, Bolio will smartly add a space and then append your new dictation.
+*   **Replace:** If you enable this option, Bolio will completely clear the text box the moment you start dictating, giving you a fresh start.
 
 ## Installation (Getting Bolio into Your Browser)
 
